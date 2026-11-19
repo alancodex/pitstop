@@ -1,8 +1,8 @@
 /* PitStop Lava Jato — configuração (única coisa que você precisa editar para publicar) */
 window.PITSTOP = {
   /* 1) Supabase: Project Settings → API (use a chave "anon"/"publishable", NUNCA a service_role) */
-  SUPABASE_URL: "https://SEU-PROJETO.supabase.co",
-  SUPABASE_ANON_KEY: "SUA-CHAVE-ANON-OU-PUBLISHABLE",
+ SUPABASE_URL: 'https://chochoxunojujiulqmoc.supabase.co',
+ SUPABASE_ANON_KEY: 'sb_publishable_VJDTJWhMDtz5NfBQKXXjEw_2GNxK8ZR',
 
   /* 2) WhatsApp do PitStop (somente dígitos, com DDI 55 + DDD).
         Informado: +55 81 9891-9952. Se o WhatsApp não abrir a conversa, confira se
