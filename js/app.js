@@ -332,22 +332,22 @@ function doneHTML() {
 function buildMessage() {
   const s = currentSvc();
   const nome = cleanName().replace(/[*_~`]/g, '');
-  return `Olá! Tudo bem? 👋
+  return `Olá! Tudo bem? \u{1F44B}
 
-Gostaria de solicitar um agendamento no *PitStop Lava Jato*! 🚗✨
+Gostaria de solicitar um agendamento no *PitStop Lava Jato*! \u{1F697}\u{2728}
 
-📋 *Detalhes do agendamento:*
+\u{1F4CB} *Detalhes do agendamento:*
 
-👤 Nome: ${nome}
-🚘 Veículo: ${state.vehicle === 'moto' ? 'Moto' : 'Carro'}
-🧼 Serviço: ${s.name}
-💰 Valor: ${money(s.price)}
-📅 Data: ${longDate(state.date)}
-⏰ Horário: ${state.time}
+\u{1F464} Nome: ${nome}
+\u{1F698} Veículo: ${state.vehicle === 'moto' ? 'Moto' : 'Carro'}
+\u{1F9FC} Serviço: ${s.name}
+\u{1F4B0} Valor: ${money(s.price)}
+\u{1F4C5} Data: ${longDate(state.date)}
+\u{23F0} Horário: ${state.time}
 
 Aguardo a confirmação do horário!
 
-Obrigado! 😊`;
+Obrigado! \u{1F60A}`;
 }
 
 /* ---------- envio ---------- */
