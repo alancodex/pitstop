@@ -69,9 +69,9 @@ const waNum = (p) => { let d = String(p || '').replace(/\D/g, ''); if (!d) retur
 const waUrl = (num, text) => `https://wa.me/${num}${text ? '?text=' + encodeURIComponent(text) : ''}`;
 function clientMsg(b, kind) {
   const base = `Olá, ${b.customer_name}! Aqui é do *PitStop Lava Jato*.`;
-  const info = `\n\n🧼 ${b.service_name}\n📅 ${longDate(b.booking_date)}\n⏰ ${hhmm(b.booking_time)}`;
-  if (kind === 'resched') return `${base} Seu agendamento foi *reagendado*:${info}\n\nPode confirmar para nós? 😊`;
-  if (b.status === 'confirmado' || b.status === 'em_andamento') return `${base} Seu agendamento está *confirmado* ✅${info}\n\nTe esperamos!`;
+  const info = `\n\n\u{1F9FC} ${b.service_name}\n\u{1F4C5} ${longDate(b.booking_date)}\n\u{23F0} ${hhmm(b.booking_time)}`;
+  if (kind === 'resched') return `${base} Seu agendamento foi *reagendado*:${info}\n\nPode confirmar para nós? \u{1F60A}`;
+  if (b.status === 'confirmado' || b.status === 'em_andamento') return `${base} Seu agendamento está *confirmado* \u{2705}${info}\n\nTe esperamos!`;
   return `${base} Sobre o seu pedido de agendamento:${info}`;
 }
 
@@ -141,7 +141,7 @@ function bkRow(b, showDate = true) {
   else if (s === 'cancelado') acts.push(['confirm', 'Reativar', 'btn-ghost']);
   return `<article class="bk" style="--c:${ST[s].c}">
     <div class="bk-main"><span class="bk-name">${esc(b.customer_name)}</span><span>${pill(s)}</span>${s === 'expirado' && b.status === 'pendente' ? '<span class="expired-note">Horário já liberado para outros clientes</span>' : ''}</div>
-    <div class="bk-meta"><span>${b.vehicle === 'moto' ? '🏍️' : '🚗'} <b>${esc(b.service_name)}</b></span>${showDate ? `<span>📅 ${shortDate(b.booking_date)}</span>` : ''}<span>⏰ <b>${hhmm(b.booking_time)}</b></span></div>
+    <div class="bk-meta"><span>${b.vehicle === 'moto' ? '\u{1F3CD}\u{FE0F}' : '\u{1F697}'} <b>${esc(b.service_name)}</b></span>${showDate ? `<span>\u{1F4C5} ${shortDate(b.booking_date)}</span>` : ''}<span>\u{23F0} <b>${hhmm(b.booking_time)}</b></span></div>
     <div class="bk-price">${money(b.price)}</div>
     <div class="bk-actions">${acts.map(([a, l, c]) => `<button class="btn btn-xs ${c}" data-act="${a}" data-id="${b.id}">${l}</button>`).join('')}
       <button class="btn btn-xs btn-ghost" data-act="details" data-id="${b.id}">Detalhes</button>
@@ -225,7 +225,7 @@ async function viewCal() {
     const live = eff.find((x) => isLive(x.s)); const dead = eff.filter((x) => !isLive(x.s));
     const block = bl.data.find((x) => x.slot_date === d && (x.slot_time === null || hhmm(x.slot_time) === t));
     let h = '';
-    if (live) h += `<button class="slot-btn has" style="--c:${ST[live.s].c}" data-act="details" data-id="${live.b.id}" title="${ST[live.s].label}"><b>${esc(live.b.customer_name)}</b><small>${live.b.vehicle === 'moto' ? '🏍️' : '🚗'} ${esc(live.b.service_name)}</small></button>`;
+    if (live) h += `<button class="slot-btn has" style="--c:${ST[live.s].c}" data-act="details" data-id="${live.b.id}" title="${ST[live.s].label}"><b>${esc(live.b.customer_name)}</b><small>${live.b.vehicle === 'moto' ? '\u{1F3CD}\u{FE0F}' : '\u{1F697}'} ${esc(live.b.service_name)}</small></button>`;
     else if (block) h += `<button class="slot-btn blocked" data-act="cell-blocked" data-id="${block.id}">Bloqueado${block.reason ? `<br><small>${esc(block.reason)}</small>` : ''}</button>`;
     else h += `<button class="slot-btn free" data-act="cell-free" data-d="${d}" data-t="${t}" aria-label="Horário livre ${t}">+</button>`;
     dead.forEach((x) => { h += `<button class="slot-btn has" style="--c:${ST[x.s].c};min-height:26px;flex:none;opacity:.65" data-act="details" data-id="${x.b.id}" title="${ST[x.s].label}"><small>${esc(x.b.customer_name)} · ${ST[x.s].label}</small></button>`; });
@@ -273,7 +273,8 @@ async function viewAjustes() {
       <div class="table-simple">${S.services.map((s) => `<div class="simple-row" data-svc="${esc(s.id)}"><div><b>${esc(s.name)}</b><div class="muted">${s.vehicle === 'moto' ? 'Moto' : 'Carro'}</div></div>
         <div class="row-flex"><label style="margin:0">R$</label><input class="input sm" type="number" min="0" step="0.5" value="${Number(s.price)}" style="width:110px" data-f="price">
         <label style="margin:0;display:flex;gap:6px;align-items:center"><input type="checkbox" data-f="active" ${s.active ? 'checked' : ''}> Ativo</label>
-        <button class="btn btn-xs btn-primary" data-act="save-svc" data-id="${esc(s.id)}">Salvar</button></div></div>`).join('')}</div></div>`;
+        <button class="btn btn-xs btn-primary" data-act="save-svc" data-id="${esc(s.id)}">Salvar</button></div>
+        <div style="flex-basis:100%"><label style="margin:6px 0 4px;font-size:12px;color:var(--muted)">O que inclui (um item por linha — aparece no site)</label><textarea class="input" rows="4" maxlength="500" data-f="description">${esc(s.description || '')}</textarea></div></div>`).join('')}</div></div>`;
 }
 
 /* ---------- seletor de horários (reagendar / novo) ---------- */
@@ -303,7 +304,7 @@ async function openDetails(id) {
   openModal('Detalhes', `
     <dl class="kv">
       <div><dt>Cliente</dt><dd>${esc(b.customer_name)}</dd></div>
-      <div><dt>Veículo</dt><dd>${b.vehicle === 'moto' ? '🏍️ Moto' : '🚗 Carro'}</dd></div>
+      <div><dt>Veículo</dt><dd>${b.vehicle === 'moto' ? '\u{1F3CD}\u{FE0F} Moto' : '\u{1F697} Carro'}</dd></div>
       <div><dt>Serviço</dt><dd>${esc(b.service_name)}</dd></div>
       <div><dt>Valor</dt><dd>${money(b.price)}</dd></div>
       <div><dt>Data</dt><dd>${longDate(b.booking_date)}</dd></div>
@@ -441,7 +442,9 @@ $('#content').addEventListener('click', async (e) => {
     else if (a === 'save-svc') {
       const row = t.closest('[data-svc]'); const price = Number($('[data-f="price"]', row).value);
       if (!(price >= 0)) return toast('Preço inválido.', true);
-      const { error } = await sb.from('services').update({ price, active: $('[data-f="active"]', row).checked }).eq('id', id); if (error) throw error; toast('Serviço atualizado.'); await loadServices();
+      const desc = $('[data-f="description"]', row).value.split('\n').map((x) => x.trim()).filter(Boolean).join('\n');
+      if (!desc) return toast('Informe pelo menos um item do que a lavagem inclui.', true);
+      const { error } = await sb.from('services').update({ price, description: desc, active: $('[data-f="active"]', row).checked }).eq('id', id); if (error) throw error; toast('Serviço atualizado.'); await loadServices();
     }
   } catch (err) { fail(err); }
 });

@@ -1,5 +1,12 @@
 /* PitStop Lava Jato — tokens e base compartilhados (site público + admin)
    Paleta extraída da logo: azul-marinho, vermelho e branco. */
+@font-face{font-family:'Barlow Condensed';font-weight:600;font-style:normal;font-display:swap;src:url('../assets/fonts/barlow-condensed-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-weight:800;font-style:normal;font-display:swap;src:url('../assets/fonts/barlow-condensed-latin-800-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url('../assets/fonts/inter-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-style:normal;font-display:swap;src:url('../assets/fonts/inter-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:600;font-style:normal;font-display:swap;src:url('../assets/fonts/inter-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/inter-latin-700-normal.woff2') format('woff2')}
 :root{
   --navy-950:#041B33;
   --navy-900:#062B4D;
@@ -38,11 +45,12 @@ h1,h2,h3,p{margin:0}
 
 .btn,.chip,.icon-btn{text-decoration:none}
 a{color:inherit}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 26px;
-  border-radius:16px;font:800 20px/1 var(--font-display);letter-spacing:.05em;text-transform:uppercase;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:8px 22px;
+  border-radius:16px;font:800 21px/1.1 var(--font-display);letter-spacing:.04em;text-transform:uppercase;
   transition:transform .15s var(--ease),box-shadow .2s,background .2s,opacity .2s;user-select:none;text-align:center}
 .btn:active{transform:scale(.97)}
-.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn[disabled],.btn.is-off{opacity:.5;transform:none;box-shadow:none}
+.btn[disabled]{cursor:not-allowed}
 .btn-primary{background:var(--red);color:#fff;box-shadow:0 12px 28px -10px rgba(252,49,50,.75)}
 .btn-primary:hover:not([disabled]){background:var(--red-600)}
 .btn-ghost{border:2px solid rgba(255,255,255,.28);color:#fff;background:rgba(255,255,255,.04)}

@@ -20,6 +20,8 @@ Azul-marinho `#073F6E` · Vermelho `#FC3132` · Branco. Fonte de títulos: Barlo
    Funcionários: crie o usuário igual e use `'staff'` (confirmam/cancelam/reagendam, mas não excluem registros nem mudam preços).
 5. **Authentication → Providers → Email**: desative **"Allow new users to sign up"** (ninguém além de você cria contas).
 
+> **Já criou o banco com a versão anterior?** Não rode o `schema.sql` de novo. Rode só `supabase/atualizacao-moto-com-cera.sql` (adiciona a lavagem de moto com cera e atualiza o que cada lavagem inclui, sem mexer nos preços que você já alterou).
+
 ### 2) Configurar o site
 Edite `js/config.js`:
 - `SUPABASE_URL` e `SUPABASE_ANON_KEY` (Project Settings → API). Use a chave **anon/publishable**, nunca a `service_role`.
@@ -41,10 +43,21 @@ Faça um agendamento pelo celular, abra `/admin/`, entre e confirme.
 - **Segurança**: clientes não leem nem alteram nenhum agendamento (RLS); só enxergam quais horários estão ocupados, sem nomes. Painel exige login do Supabase Auth e conferência na tabela `admins`; sem isso o banco recusa tudo, mesmo que alguém descubra o endereço `/admin/`.
 - **Painel**: indicadores do dia, lista com filtros (data, veículo, serviço, status), calendário semanal/diário colorido por status, confirmar / iniciar / concluir / cancelar / reagendar / excluir (só dono), histórico de cada reserva, bloqueio de horários ou dia inteiro, WhatsApp do cliente (quando o painel tiver o telefone anotado) e do PitStop.
 
+## Serviços e preços
+| Veículo | Serviço | Preço | O que inclui |
+|---|---|---|---|
+| Carro | Lavagem completa com cera | R$ 65,00 | Lavagem externa · Aspiração interna · Limpeza do painel · Aplicação de cera |
+| Carro | Lavagem sem cera | R$ 45,00 | Lavagem externa · Aspiração interna · Limpeza do painel |
+| Moto | Lavagem completa com cera | R$ 50,00 | Lavagem · Restaurador para os plásticos · Aplicação de cera Vonixx com 3 meses de proteção · Selante para pneus |
+| Moto | Lavagem sem cera | R$ 35,00 | Lavagem · Pretinho nos pneus |
+
+Preço e "o que inclui" (um item por linha) podem ser editados pelo proprietário em **Painel → Ajustes**, sem mexer no código.
+
 ## Fotos
-Adicione novas fotos em `assets/` e inclua uma linha em `GALLERY` no `js/config.js` (informe largura/altura reais). As imagens aparecem inteiras, sem cortes.
+Adicione novas fotos em `assets/galeria/` e inclua uma linha em `GALLERY` no `js/config.js` (informe largura/altura reais; gere também uma miniatura de 900 px de altura). As imagens aparecem inteiras, na proporção original, sem cortes.
 
 ## Observações
+- Os emojis da mensagem do WhatsApp estão escritos como códigos unicode (`\u{1F44B}` etc.) em `js/app.js`, para não dependerem da codificação do arquivo ou do servidor.
 - O cliente informa só o nome, então o botão de WhatsApp do cliente no painel só aparece depois que alguém anotar o telefone em *Detalhes*.
 - Horários de atendimento mudaram? Altere `SLOTS`/`OPEN_DAYS` em `js/config.js` **e** a função `business_slots()` / regra de domingo em `supabase/schema.sql`.
 - Instalar como app: Android mostra "Instalar app"; no iPhone, Compartilhar → Adicionar à Tela de Início.

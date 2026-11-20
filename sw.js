@@ -1,7 +1,7 @@
 /* PitStop — service worker: abre rápido e funciona como app. Nunca guarda dados de agendamento. */
-const VERSION = 'pitstop-v1';
+const VERSION = 'pitstop-v3';
 const SHELL = ['./', 'index.html', 'css/tokens.css', 'css/style.css', 'js/config.js', 'js/app.js', 'manifest.webmanifest',
-  'assets/logo.png', 'assets/pattern.svg', 'assets/moto-honda-thumb.jpg', 'assets/carro-suv-prata-thumb.jpg', 'assets/carro-cinza-thumb.jpg'];
+  'assets/logo.png', 'assets/fonts/barlow-condensed-latin-800-normal.woff2', 'assets/fonts/barlow-condensed-latin-700-normal.woff2', 'assets/fonts/inter-latin-400-normal.woff2', 'assets/fonts/inter-latin-500-normal.woff2', 'assets/fonts/inter-latin-600-normal.woff2', 'assets/fonts/inter-latin-700-normal.woff2', 'assets/pattern.svg', 'assets/galeria/carro-jeep-azul-thumb.jpg', 'assets/galeria/moto-royal-enfield-thumb.jpg', 'assets/galeria/carro-hyundai-rodas-thumb.jpg', 'assets/galeria/carro-ka-branco-thumb.jpg', 'assets/galeria/moto-fan-vermelha-thumb.jpg'];
 
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => {

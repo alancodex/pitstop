@@ -23,9 +23,10 @@ create table if not exists public.services (
 );
 
 insert into public.services (id, vehicle, name, description, price, sort) values
-  ('moto',          'moto',  'Lavagem de moto',           'Lavagem da sua moto.', 35.00, 1),
-  ('carro-cera',    'carro', 'Lavagem completa com cera', 'Lavagem externa, aspiração interna, limpeza do painel e cera.', 65.00, 2),
-  ('carro-simples', 'carro', 'Lavagem sem cera',          'Lavagem externa, aspiração interna e limpeza do painel.', 45.00, 3)
+  ('carro-cera',    'carro', 'Lavagem completa com cera', E'Lavagem externa\nAspiração interna\nLimpeza do painel\nAplicação de cera', 65.00, 1),
+  ('carro-simples', 'carro', 'Lavagem sem cera',          E'Lavagem externa\nAspiração interna\nLimpeza do painel', 45.00, 2),
+  ('moto-cera',     'moto',  'Lavagem completa com cera', E'Lavagem\nRestaurador para os plásticos\nAplicação de cera Vonixx com 3 meses de proteção\nSelante para pneus', 50.00, 3),
+  ('moto',          'moto',  'Lavagem sem cera',          E'Lavagem\nPretinho nos pneus', 35.00, 4)
 on conflict (id) do nothing;
 
 create table if not exists public.settings (
