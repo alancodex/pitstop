@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#041B33">
+<title>Painel · PitStop Lava Jato</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="preload" href="../assets/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.6-4.8A9 9 0 1 1 8 19.6L3 21z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 8.5z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M16 8l4 4-4 4M20 12H9"/></symbol>
+</svg>
+
+<!-- Login -->
+<main id="login" class="login" hidden>
+  <form id="loginForm" class="login-card" autocomplete="on">
+    <img src="../assets/logo.png" alt="PitStop" width="190" height="72">
+    <h1>Área administrativa</h1>
+    <p class="muted">Acesso restrito à equipe do PitStop.</p>
+    <label for="email">E-mail</label>
+    <input id="email" class="input" type="email" autocomplete="username" required>
+    <label for="pass">Senha</label>
+    <input id="pass" class="input" type="password" autocomplete="current-password" required>
+    <p class="err" id="loginErr" role="alert"></p>
+    <button class="btn btn-primary btn-block" id="loginBtn" type="submit">Entrar</button>
+  </form>
+</main>
+
+<!-- App -->
+<div id="app" hidden>
+  <header class="bar">
+    <img src="../assets/logo.png" alt="PitStop" width="110" height="42">
+    <nav class="tabs" id="tabs" aria-label="Seções">
+      <button data-tab="painel" class="on">Painel</button>
+      <button data-tab="agendamentos">Agendamentos</button>
+      <button data-tab="calendario">Calendário</button>
+      <button data-tab="bloqueios">Bloqueios</button>
+      <button data-tab="ajustes" id="tabAjustes" hidden>Ajustes</button>
+    </nav>
+    <div class="bar-right">
+      <a class="btn btn-sm btn-ghost" id="waShop" target="_blank" rel="noopener" href="#"><svg class="ico"><use href="#i-wa"/></svg><span class="hide-sm">WhatsApp PitStop</span></a>
+      <button class="btn btn-sm btn-ghost" id="refreshBtn" type="button" aria-label="Atualizar"><svg class="ico"><use href="#i-refresh"/></svg></button>
+      <button class="btn btn-sm btn-ghost" id="logoutBtn" type="button" aria-label="Sair"><svg class="ico"><use href="#i-out"/></svg><span class="hide-sm" id="whoami">Sair</span></button>
+    </div>
+  </header>
+  <main id="content" class="content"></main>
+</div>
+
+<div class="modal-back" id="modalBack" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header><h2 id="modalTitle"></h2><button class="icon-btn" id="modalClose" type="button" aria-label="Fechar"><svg class="ico"><use href="#i-x"/></svg></button></header>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
